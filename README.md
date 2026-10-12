@@ -25,7 +25,8 @@ pak::pak("LinusFromm/extensionSamplers")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example from the accompanying paper (4-highway with
+Poisson assumptions):
 
 ``` r
 library(extensionSamplers)

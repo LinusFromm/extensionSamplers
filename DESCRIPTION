@@ -1,9 +1,9 @@
 Package: extensionSamplers
-Title: What the Package Does (One Line, Title Case)
+Title: Extended Fibre Samplers for Statistical Linear Inverse Problems
 Version: 1.0.0
 Authors@R: 
     person("Linus", "Fromm", , "froli465@student.otago.ac.nz", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: This package implements fibre samplers for which a Markov basis cannot be found. As a solution, it samples from an extended fibre (including samples with negative counts). The algorithm is a Metropolis-Hastings algorithm and is described in the accompanying paper.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

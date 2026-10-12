@@ -1,20 +1,21 @@
-#' Extension Samplers
+#' Hyperrectangle Sampler
 #' @param A Configuration Matrix
 #' @param y (Corrupted/aggregated) Observation Vector
-#' @param B Set of moves used (p-Markov, CPLB or Full Markov)
+#' @param B Set of moves used (CPLB)
 #' @param Model Type of model ("uniform" or "poisson")
 #' @param lambda Rate parameters for "poisson" Model
 #' @param A2Idx Free variables correponding to matrix A_2
-#' @param a "hyperrectangle" extension: bounds on hyperrectangle, "knapsack": objective function
+#' @param a bounds on hyperrectangle
 #' @param loggamma Combined normalizing constant and delta
-#' @param w Weight put on "outsideness"
-#' @param xStart Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains
+#' @param w Weight put on "outsideness", as discussed in paper
+#' @param xStart Starting point for chain.
 #' @param nSample Number of samples
 #' @param nBurnin Number of burnin steps
-#' @param chainID Which number chain?
+#' @param chainID ID of chain for parallelisation
 #' @param thinning Thinning parameter
+#' @param includeBurnin Should the Burnin in be returned as well?
 #'
-#' @export
+#' @return Returns a Metropolis-Hastings sample from the hyperrectangle sampler using one of two models.
 hyperrectangleSampler <- function(A,
                                   y,
                                   B = NULL,
@@ -28,7 +29,8 @@ hyperrectangleSampler <- function(A,
                                   nSample = 1e+05,
                                   nBurnin = 1e+04,
                                   chainID = 4,
-                                  thinning = 1){
+                                  thinning = 1,
+                                  includeBurnin = FALSE){
   r = nrow(A)
   c = ncol(A)
 
@@ -63,10 +65,17 @@ hyperrectangleSampler <- function(A,
     stop("a has to have dimension c-r!")
   }
 
-  x = matrix(NA, ncol = c+3, nrow = nSample/thinning)
-  x[, c+3] = (chainID-1)*nSample + 1:(nSample/thinning)
-  x[, c+2] = 1:(nSample/thinning)
-  x[, c+1] = rep(chainID, nSample/thinning)
+  if(includeBurnin){
+    x = matrix(NA, ncol = c+3, nrow = nSample/thinning+nBurnin/thinning)
+    x[, c+3] = (chainID-1)*((nSample + nBurnin)/thinning) + 1:((nSample + nBurnin)/thinning)
+    x[, c+2] = 1:((nSample + nBurnin)/thinning)
+    x[, c+1] = rep(chainID, (nSample + nBurnin)/thinning)
+  } else {
+    x = matrix(NA, ncol = c+3, nrow = nSample/thinning)
+    x[, c+3] = (chainID-1)*(nSample/thinning) + 1:(nSample/thinning)
+    x[, c+2] = 1:(nSample/thinning)
+    x[, c+1] = rep(chainID, nSample/thinning)
+  }
 
   if(is.null(xStart)){
     xStart = lpSolve::lp(direction = "min",
@@ -79,14 +88,40 @@ hyperrectangleSampler <- function(A,
 
   xCurrent = xStart
 
-  moveIndices = sample(1:ncol(B), nBurnin, replace = TRUE)
-  for(iiii in 1:nBurnin){
-    moveIdx = moveIndices[iiii]
-    xProposal = proposePoint(xCurrent, moveIdx, B, extension = "hyperrectangle", A2Idx = A2Idx, a = a)
-    alpha = acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda)
+  if(nBurnin > 0){
+    moveIndices = sample(1:ncol(B), nBurnin, replace = TRUE)
 
-    if(stats::runif(1) < exp(alpha)){
-      xCurrent = xProposal
+    if(includeBurnin){
+      temperature = rep(1, nBurnin)
+      temperature[1:floor(nBurnin/2)] = seq(0, 1, length.out = floor(nBurnin/2))
+
+      for(iiii in 1:nBurnin){
+        moveIdx = moveIndices[iiii]
+        xProposal = proposePoint(xCurrent, moveIdx, B, extension = "hyperrectangle", A2Idx = A2Idx, a = a)
+        alpha = acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda)*temperature[iiii]
+
+        if(stats::runif(1) < exp(alpha)){
+          xCurrent = xProposal
+        }
+
+        if(iiii%%thinning == 0){
+          x[iiii/thinning, 1:c] <- xCurrent
+        }
+      }
+
+    } else {
+      temperature = rep(1, nBurnin)
+      temperature[1:floor(nBurnin/2)] = seq(0, 1, length.out = floor(nBurnin/2))
+
+      for(iiii in 1:nBurnin){
+        moveIdx = moveIndices[iiii]
+        xProposal = proposePoint(xCurrent, moveIdx, B, extension = "hyperrectangle", A2Idx = A2Idx, a = a)
+        alpha = acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda)*temperature[iiii]
+
+        if(stats::runif(1) < exp(alpha)){
+          xCurrent = xProposal
+        }
+      }
     }
   }
 
@@ -101,8 +136,12 @@ hyperrectangleSampler <- function(A,
     }
 
     if(iiiii%%thinning == 0){
-      x[iiiii/thinning, 1:c] = xCurrent
+      if(includeBurnin){
+        x[nBurnin/thinning + iiiii/thinning, 1:c] = xCurrent
+      } else {
+        x[iiiii/thinning, 1:c] = xCurrent
+      }
     }
   }
-  return(x)
+  return(x = x)
 }

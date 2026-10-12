@@ -2,7 +2,7 @@
 % Please edit documentation in R/acceptanceExt.R
 \name{acceptanceExt}
 \alias{acceptanceExt}
-\title{Calculate acceptance probability}
+\title{Calculate Metropolis-Hastings acceptance probability}
 \usage{
 acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda = NULL)
 }
@@ -13,12 +13,15 @@ acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda = NULL)
 
 \item{loggamma}{Combined normalizing constant and delta}
 
-\item{w}{Weight put on "outsideness"}
+\item{w}{Weight put on "outsideness", as discussed in Paper}
 
 \item{Model}{Type of model ("uniform" or "poisson")}
 
 \item{lambda}{Rate parameters for "poisson" Model}
 }
+\value{
+Returns a single numeric value that is the acceptance probability moving from \code{xCurrent} to \code{xProposal}
+}
 \description{
-Calculate acceptance probability
+Calculate Metropolis-Hastings acceptance probability
 }

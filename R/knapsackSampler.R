@@ -1,21 +1,21 @@
-#' knapsack-Samplers
+#' knapsack-Sampler
 #' @param A Configuration Matrix
 #' @param y (Corrupted/aggregated) Observation Vector
-#' @param B Set of moves used (p-Markov, CPLB or Full Markov)
+#' @param B Set of moves used (CPLB)
 #' @param Model Type of model ("uniform" or "poisson")
 #' @param lambda Rate parameters for "poisson" Model
 #' @param A2Idx Free variables correponding to matrix A_2
-#' @param a "hyperrectangle" extension: bounds on hyperrectangle, "knapsack": objective function
+#' @param a Objective function for the knapsack
 #' @param b Upper bound of objective function for knapsack extension
 #' @param loggamma Combined normalizing constant and delta
-#' @param w Weight put on "outsideness"
-#' @param xStart Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains
+#' @param w Weight put on "outsideness", as described in paper
+#' @param xStart Starting point for chain
 #' @param nSample Number of samples
 #' @param nBurnin Number of burnin steps
-#' @param chainID Which number chain?
+#' @param chainID ID of Chain for parallelisation
 #' @param thinning Thinning parameter
 #'
-#' @export
+#' @return Returns a Metropolis-Hastings sample from the knapsack sampler using one of two models.
 knapsackSampler <- function(A,
                             y,
                             B = NULL,

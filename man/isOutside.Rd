@@ -10,7 +10,7 @@ isOutside(x)
 \item{x}{Vector that is tested}
 }
 \value{
-Returns true if any of the entries is negative
+Returns true/false for whether any of \code{x}s entries is negative
 }
 \description{
 Is the vector in the extension?

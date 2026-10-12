@@ -1,9 +1,9 @@
 #' Converting from matrix to draws_df
 #' @param x Matrix containing the sample including chain, iteration and draw numbers.
 #' @param varNames Fill names for the variables if NULL names will be $xi$ for the ith variable.
-#' @param matrix Is the sample a matrix?
+#' @param matrix Is the sample a matrix? (TRUE for any samples from the (extension) samples in this package)
 #'
-#' @return Returns the sample object of any of the samplers as a draws_df file
+#' @return Returns the sample object of any of the samplers as a draws_df data type from the posterior package
 #' @export
 to_draws_df <- function(x,
                         varNames = NULL,

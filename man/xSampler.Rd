@@ -32,20 +32,20 @@ xSampler(
 
 \item{proposal}{Which proposal for moves? "Random" or "NonRandom", first will use the uniform distribution the latter a systematic approach.}
 
-\item{xStart}{Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains}
+\item{xStart}{Starting point for chain}
 
 \item{nSample}{Number of samples that are produced}
 
 \item{nBurnin}{Number of burnin steps}
 
-\item{chainID}{Chain ID passed down from sampler.R}
+\item{chainID}{Chain ID passed down from sampler.R (for parallelisation)}
 
 \item{thinning}{Thinning parameter (store only every ith state)}
 
 \item{includeBurnin}{Should the output include the burn-in samples?}
 }
 \value{
-Returns a matrix of samples
+Returns a matrix of samples from Metropolis-Hastings algorithm
 }
 \description{
 x-sampler

@@ -1,20 +1,20 @@
 #' p-samplers
 #' @param A Configuration Matrix
 #' @param y (Corrupted/aggregated) Observation Vector
-#' @param B Set of moves used (p-Markov, CPLB or Full Markov)
+#' @param B Set of moves used (p-Markov)
 #' @param Model Type of model ("uniform" or "poisson")
 #' @param lambda Rate parameters for "poisson" Model
 #' @param p Relaxation limit
 #' @param loggamma Combined normalizing constant and delta
-#' @param w Weight put on "outsideness"
-#' @param xStart Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains
+#' @param w Weight put on "outsideness", as described in paper.
+#' @param xStart Starting point for chain
 #' @param nSample Number of samples
 #' @param nBurnin Number of burnin steps
-#' @param chainID Which number chain?
+#' @param chainID ID of chain for parallelisation
 #' @param thinning Thinning parameter
 #' @param includeBurnin Should the output include the burn-in samples?
 #'
-#' @export
+#' @return Returns a Metropolis-Hastings sample from the p-MB sampler using one of two models.
 pSampler <- function(A,
                      y,
                      B,
@@ -67,7 +67,8 @@ pSampler <- function(A,
     moveIndices = sample(1:ncol(B), nBurnin, replace = TRUE)
 
     if(includeBurnin){
-      temperature = seq(0, 1, length.out = nBurnin)
+      temperature = rep(1, nBurnin)
+      temperature[1:floor(nBurnin/2)] = seq(0, 1, length.out = floor(nBurnin/2))
 
       for(iiii in 1:nBurnin){
         moveIdx = moveIndices[iiii]
@@ -84,7 +85,8 @@ pSampler <- function(A,
       }
 
     } else {
-      temperature = seq(0,1,length.out = nBurnin)
+      temperature = rep(1, nBurnin)
+      temperature[1:floor(nBurnin/2)] = seq(0, 1, length.out = floor(nBurnin/2))
 
       for(iiii in 1:nBurnin){
         moveIdx = moveIndices[iiii]

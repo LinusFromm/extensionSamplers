@@ -2,7 +2,7 @@
 % Please edit documentation in R/hyperrectangleSampler.R
 \name{hyperrectangleSampler}
 \alias{hyperrectangleSampler}
-\title{Extension Samplers}
+\title{Hyperrectangle Sampler}
 \usage{
 hyperrectangleSampler(
   A,
@@ -18,7 +18,8 @@ hyperrectangleSampler(
   nSample = 1e+05,
   nBurnin = 10000,
   chainID = 4,
-  thinning = 1
+  thinning = 1,
+  includeBurnin = FALSE
 )
 }
 \arguments{
@@ -26,7 +27,7 @@ hyperrectangleSampler(
 
 \item{y}{(Corrupted/aggregated) Observation Vector}
 
-\item{B}{Set of moves used (p-Markov, CPLB or Full Markov)}
+\item{B}{Set of moves used (CPLB)}
 
 \item{Model}{Type of model ("uniform" or "poisson")}
 
@@ -34,22 +35,27 @@ hyperrectangleSampler(
 
 \item{A2Idx}{Free variables correponding to matrix A_2}
 
-\item{a}{"hyperrectangle" extension: bounds on hyperrectangle, "knapsack": objective function}
+\item{a}{bounds on hyperrectangle}
 
 \item{loggamma}{Combined normalizing constant and delta}
 
-\item{w}{Weight put on "outsideness"}
+\item{w}{Weight put on "outsideness", as discussed in paper}
 
-\item{xStart}{Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains}
+\item{xStart}{Starting point for chain.}
 
 \item{nSample}{Number of samples}
 
 \item{nBurnin}{Number of burnin steps}
 
-\item{chainID}{Which number chain?}
+\item{chainID}{ID of chain for parallelisation}
 
 \item{thinning}{Thinning parameter}
+
+\item{includeBurnin}{Should the Burnin in be returned as well?}
+}
+\value{
+Returns a Metropolis-Hastings sample from the hyperrectangle sampler using one of two models.
 }
 \description{
-Extension Samplers
+Hyperrectangle Sampler
 }

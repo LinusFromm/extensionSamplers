@@ -1,4 +1,4 @@
-#' Computes a column partition lattice basis
+#' Compute a column partition lattice basis
 #' @param A Configuration matrix
 #' @param A2Idx Index of columns of A2
 #'

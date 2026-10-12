@@ -1,11 +1,12 @@
-#' Calculate acceptance probability
+#' Calculate Metropolis-Hastings acceptance probability
 #' @param xCurrent Current state of MCMC
 #' @param xProposal Proposed new state of the MCMC
 #' @param loggamma Combined normalizing constant and delta
-#' @param w Weight put on "outsideness"
+#' @param w Weight put on "outsideness", as discussed in Paper
 #' @param Model Type of model ("uniform" or "poisson")
 #' @param lambda Rate parameters for "poisson" Model
 #'
+#' @return Returns a single numeric value that is the acceptance probability moving from `xCurrent` to `xProposal`
 acceptanceExt <- function(xCurrent, xProposal, loggamma, w, Model, lambda = NULL){
   xCurrent <- as.numeric(xCurrent)
   xProposal <- as.numeric(xProposal)
@@ -23,7 +24,7 @@ acceptanceExt <- function(xCurrent, xProposal, loggamma, w, Model, lambda = NULL
     } else {
       alpha = 0
     }
-  } else if(Model == "poisson"){
+  } else if (Model == "poisson") {
     if(isOutside(xCurrent) && isOutside(xProposal)){
       p.current = -w*sum(abs(xCurrent[which(xCurrent < 0)])) + sum(stats::dpois(xCurrent[which(xCurrent >= 0)],
                                                                                 lambda = lambda[which(xCurrent >= 0)],

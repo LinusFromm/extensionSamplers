@@ -2,10 +2,10 @@
 % Please edit documentation in R/proposePoint.R
 \name{proposePoint}
 \alias{proposePoint}
-\title{Proposing algorithm}
+\title{Propose a new point}
 \usage{
 proposePoint(
-  x.current,
+  xCurrent,
   moveIdx,
   B,
   extension = "p",
@@ -16,13 +16,13 @@ proposePoint(
 )
 }
 \arguments{
-\item{x.current}{Current state of MCMC}
+\item{xCurrent}{Current state of MCMC}
 
 \item{moveIdx}{Index of the move in the collection of moves B}
 
 \item{B}{Collection of moves (p-MB, CPLB or FMB)}
 
-\item{extension}{Type of extension}
+\item{extension}{Type of extension (p-MB, HR or KS (knapsack))}
 
 \item{p}{Relaxation limit}
 
@@ -32,6 +32,9 @@ proposePoint(
 
 \item{b}{Upper bound of objective function for knapsack extension}
 }
+\value{
+Returns a vector that is the new proposed point in the Metropolis-Hastings algorithm
+}
 \description{
-Proposing algorithm
+Propose a new point
 }

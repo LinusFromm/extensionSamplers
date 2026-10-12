@@ -5,14 +5,14 @@
 #' @param Model Unconditional distribution on x
 #' @param lambda Poisson rates for each x_i
 #' @param proposal Which proposal for moves? "Random" or "NonRandom", first will use the uniform distribution the latter a systematic approach.
-#' @param xStart Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains
+#' @param xStart Starting point for chain
 #' @param nSample Number of samples that are produced
-#' @param chainID Chain ID passed down from sampler.R
+#' @param chainID Chain ID passed down from sampler.R (for parallelisation)
 #' @param nBurnin Number of burnin steps
 #' @param thinning Thinning parameter (store only every ith state)
 #' @param includeBurnin Should the output include the burn-in samples?
 #'
-#' @return Returns a matrix of samples
+#' @return Returns a matrix of samples from Metropolis-Hastings algorithm
 #' @export
 xSampler <- function(A,
                      y,

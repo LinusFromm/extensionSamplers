@@ -26,7 +26,7 @@ pSampler(
 
 \item{y}{(Corrupted/aggregated) Observation Vector}
 
-\item{B}{Set of moves used (p-Markov, CPLB or Full Markov)}
+\item{B}{Set of moves used (p-Markov)}
 
 \item{Model}{Type of model ("uniform" or "poisson")}
 
@@ -36,19 +36,22 @@ pSampler(
 
 \item{loggamma}{Combined normalizing constant and delta}
 
-\item{w}{Weight put on "outsideness"}
+\item{w}{Weight put on "outsideness", as described in paper.}
 
-\item{xStart}{Starting points for each chain. Needs to be fed in as a matrix with number of rows = number of chains}
+\item{xStart}{Starting point for chain}
 
 \item{nSample}{Number of samples}
 
 \item{nBurnin}{Number of burnin steps}
 
-\item{chainID}{Which number chain?}
+\item{chainID}{ID of chain for parallelisation}
 
 \item{thinning}{Thinning parameter}
 
 \item{includeBurnin}{Should the output include the burn-in samples?}
+}
+\value{
+Returns a Metropolis-Hastings sample from the p-MB sampler using one of two models.
 }
 \description{
 p-samplers

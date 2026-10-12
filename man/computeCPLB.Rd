@@ -2,7 +2,7 @@
 % Please edit documentation in R/computeCPLB.R
 \name{computeCPLB}
 \alias{computeCPLB}
-\title{Computes a column partition lattice basis}
+\title{Compute a column partition lattice basis}
 \usage{
 computeCPLB(A, A2Idx)
 }
@@ -15,5 +15,5 @@ computeCPLB(A, A2Idx)
 Returns a column partition lattice basis as matrix
 }
 \description{
-Computes a column partition lattice basis
+Compute a column partition lattice basis
 }

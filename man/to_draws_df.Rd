@@ -11,10 +11,10 @@ to_draws_df(x, varNames = NULL, matrix = TRUE)
 
 \item{varNames}{Fill names for the variables if NULL names will be $xi$ for the ith variable.}
 
-\item{matrix}{Is the sample a matrix?}
+\item{matrix}{Is the sample a matrix? (TRUE for any samples from the (extension) samples in this package)}
 }
 \value{
-Returns the sample object of any of the samplers as a draws_df file
+Returns the sample object of any of the samplers as a draws_df data type from the posterior package
 }
 \description{
 Converting from matrix to draws_df

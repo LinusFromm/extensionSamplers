@@ -213,7 +213,6 @@ nExtra = 1e+04
 
 i = 9
 
-pdf("fig6-2.pdf", width = 6, height = 5)
 xRange = range(MB_samples_burnin[c(1:(nBurnin+nExtra),
                                    (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                    2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
@@ -224,10 +223,8 @@ extensionSamplers::traceplot(MB_samples_burnin[c(1:(nBurnin+nExtra),
                                                  2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, FALSE, ylim = xRange)
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
-dev.off()
 
 
-pdf("fig6-3.pdf", width = 6, height = 5)
 xRange = range(LB_samples_burnin[c(1:(nBurnin+nExtra),
                                     (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                     2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
@@ -238,9 +235,7 @@ extensionSamplers::traceplot(LB_samples_burnin[c(1:(nBurnin+nExtra),
                                                  2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, TRUE, 0.2, ylim = xRange)
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
-dev.off()
 
-pdf("fig6-4.pdf", width = 6, height = 5)
 xRange = range(hyperrectangle_LB_burnin[c(1:(nBurnin+nExtra),
                                           (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                           2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
@@ -252,4 +247,3 @@ extensionSamplers::traceplot(hyperrectangle_LB_burnin[c(1:(nBurnin+nExtra),
                                                         3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, TRUE, 0.2, ylim = xRange)
 
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
-dev.off()

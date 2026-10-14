@@ -6,7 +6,7 @@
 #' @param Model Type of model ("uniform" or "poisson")
 #' @param lambda Rate parameters for "poisson" Model
 #'
-#' @return Returns a single numeric value that is the acceptance probability moving from `xCurrent` to `xProposal`
+#' @return Returns a single numeric value that is the log acceptance probability moving from `xCurrent` to `xProposal`
 acceptanceExt <- function(xCurrent, xProposal, loggamma, w, Model, lambda = NULL){
   xCurrent <- as.numeric(xCurrent)
   xProposal <- as.numeric(xProposal)

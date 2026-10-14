@@ -56,7 +56,7 @@ sampler <- function(A,
         thinning = thinning,
         includeBurnin = includeBurnin
       )
-    }, future.seed = TRUE, future.packages = "LIPS")
+    }, future.seed = TRUE, future.packages = "extensionSamplers")
   }
 
   if(extension == "p"){
@@ -77,7 +77,7 @@ sampler <- function(A,
         thinning = thinning,
         includeBurnin = includeBurnin
       )
-    }, future.seed = TRUE, future.packages = "LIPS")
+    }, future.seed = TRUE, future.packages = "extensionSamplers")
   } else if(extension == "hyperrectangle"){
     x = future.apply::future_lapply(1:nChains, function(chainID) {
       hyperrectangleSampler(A = A,
@@ -95,7 +95,7 @@ sampler <- function(A,
                             chainID = chainID,
                             thinning = thinning,
                             includeBurnin = includeBurnin)
-    }, future.seed = TRUE, future.packages = "LIPS")
+    }, future.seed = TRUE, future.packages = "extensionSamplers")
   } else if(extension == "knapsack"){
     x = future.apply::future_lapply(1:nChains, function(chainID) {
       knapsackSampler(A = A,
@@ -113,7 +113,7 @@ sampler <- function(A,
                       nBurnin = nBurnin,
                       chainID = chainID,
                       thinning = thinning)
-    }, future.seed = TRUE, future.packages = "LIPS")
+    }, future.seed = TRUE, future.packages = "extensionSamplers")
   }
   return(do.call(rbind, x))
 }

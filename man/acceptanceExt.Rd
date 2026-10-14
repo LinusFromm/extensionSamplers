@@ -20,7 +20,7 @@ acceptanceExt(xCurrent, xProposal, loggamma, w, Model, lambda = NULL)
 \item{lambda}{Rate parameters for "poisson" Model}
 }
 \value{
-Returns a single numeric value that is the acceptance probability moving from \code{xCurrent} to \code{xProposal}
+Returns a single numeric value that is the log acceptance probability moving from \code{xCurrent} to \code{xProposal}
 }
 \description{
 Calculate Metropolis-Hastings acceptance probability

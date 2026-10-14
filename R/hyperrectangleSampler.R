@@ -60,7 +60,7 @@ hyperrectangleSampler <- function(A,
                          all.int = TRUE)$solution[A2Idx[i]]
     }
   } else if(length(a) == 1){
-    a = rep(a, r)
+    a = rep(a, c-r)
   } else if(length(a) != c-r){
     stop("a has to have dimension c-r!")
   }

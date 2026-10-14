@@ -55,7 +55,8 @@ xSampler <- function(A,
   xCurrent = xStart
 
   if(nBurnin > 0){
-    temperature = seq(0,1,length.out = nBurnin)
+    temperature = rep(1, nBurnin)
+    temperature[1:floor(nBurnin/2)] = seq(0, 1, length.out = floor(nBurnin/2))
 
     move_indices = c()
     if(proposal == "Random"){
@@ -65,6 +66,7 @@ xSampler <- function(A,
     }
 
     if(includeBurnin){
+
       for(iiii in 1:nBurnin){
         z.idx = move_indices[iiii]
         z = B[,z.idx]
@@ -86,10 +88,10 @@ xSampler <- function(A,
           if(u < exp(alpha*temperature[iiii])){
             xCurrent = xmin + a*z
           }
+        }
 
-          if(iiii%%thinning == 0){
-            x[iiii/thinning, 1:c] <- xCurrent
-          }
+        if(iiii%%thinning == 0){
+          x[iiii/thinning, 1:c] <- xCurrent
         }
       }
 

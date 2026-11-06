@@ -1,9 +1,26 @@
-#' 4-highway Example
+#' 3-highway Example
 #'
 #' The state highway example with 5 destinations used in the paper.
 #'
-#' @format ## `highway4`
+#' @format ## `highway3`
 #' This is a list containing all elements needed to run the examples presented in the paper.
+#' \describe{
+#'   \item{A}{Configuration matrix}
+#'   \item{FMB}{Full Markov basis for A, found by 4ti2}
+#'   \item{LB}{1-Markov basis, found by partitioning A (first 4 columns are in A1)}
+#'   \item{y}{An observation of the road system}
+#'   \item{lambda}{Estimated origin/destination rates under Poisson assumption}
+#'   \item{A2IdxLB}{The index of columns for A2 when A is partitioned to form LB}
+#'   \item{A1IdxFMB}{The index of columns for A1 when A is partitioned to form FMB}
+#' }
+"highway3"
+
+#' 4-highway Example
+#'
+#' The state highway example with 5 destinations used in the supplementary material.
+#'
+#' @format ## `highway4`
+#' This is a list containing all elements needed to run the examples presented in the supplementary material.
 #' \describe{
 #'   \item{A}{Configuration matrix}
 #'   \item{FMB}{Full Markov basis for A, found by 4ti2}

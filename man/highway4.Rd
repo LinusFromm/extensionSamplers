@@ -7,7 +7,7 @@
 \format{
 \subsection{\code{highway4}}{
 
-This is a list containing all elements needed to run the examples presented in the paper.
+This is a list containing all elements needed to run the examples presented in the supplementary material.
 \describe{
 \item{A}{Configuration matrix}
 \item{FMB}{Full Markov basis for A, found by 4ti2}
@@ -24,6 +24,6 @@ This is a list containing all elements needed to run the examples presented in t
 highway4
 }
 \description{
-The state highway example with 5 destinations used in the paper.
+The state highway example with 5 destinations used in the supplementary material.
 }
 \keyword{datasets}

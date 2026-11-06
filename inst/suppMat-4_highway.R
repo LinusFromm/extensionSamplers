@@ -3,7 +3,7 @@ A = extensionSamplers::highway4$A
 
 x = extensionSamplers::highway4$x
 y = extensionSamplers::highway4$y
-  
+
 nSample = 1e+05
 nBurnin = 2e+04
 
@@ -32,12 +32,12 @@ samplesUniformFMB <- extensionSamplers::sampler(A = A,
 write.csv(samplesUniformFMB, "4-highway_uniform_FMB.csv", row.names = FALSE)
 
 set.seed(2027)
-samplesUniform1MB <- extensionSamplers::sampler(A = A,
+samplesUniform2MB <- extensionSamplers::sampler(A = A,
                                           y = y,
                                           B = LB,
                                           Model = "uniform",
                                           extension = "p",
-                                          p = ifelse(1:10 %in% A2Idx, 0, 1),
+                                          p = ifelse(1:10 %in% A2Idx, 0, 2),
                                           loggamma = 0,
                                           w = 0,
                                           nChains = 4,
@@ -45,9 +45,9 @@ samplesUniform1MB <- extensionSamplers::sampler(A = A,
                                           nBurnin = nBurnin,
                                           includeBurnin = FALSE)
 
-write.csv(samplesUniform1MB, "4-highway_uniform_1MB.csv", row.names = FALSE)
+write.csv(samplesUniform2MB, "4-highway_uniform_2MB.csv", row.names = FALSE)
 
-positiveProportion1MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesUniform1MB)))/(4*nSample)
+positiveProportion2MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesUniform2MB)))/(4*nSample)
 
 set.seed(2027)
 samplesUniformHR <- extensionSamplers::sampler(A = A,

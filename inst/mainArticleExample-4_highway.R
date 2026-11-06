@@ -124,7 +124,7 @@ MB_samples[,13] <- 1:(4*nSample)
 
 write.csv(MB_samples_burnin, "MB_samples.csv", row.names = FALSE)
 
-#### 1 MB Sampler ####
+#### 2 MB Sampler ####
 
 set.seed(2027)
 LB_samples_burnin <- extensionSamplers::sampler(A = A,
@@ -133,7 +133,7 @@ LB_samples_burnin <- extensionSamplers::sampler(A = A,
                                                 Model = "poisson",
                                                 lambda = lambda,
                                                 extension = "p",
-                                                p = ifelse(1:10 %in% A2Idx, 0, 1),
+                                                p = ifelse(1:10 %in% A2Idx, 0, 2),
                                                 loggamma = 0,
                                                 w = 2,
                                                 xStart = xStart,
@@ -197,9 +197,11 @@ ess_LB_pos <- positive_portion_LB*ess_LB
 ess_HR_LB_pos <- positive_portion_hyperrectangle_LB*ess_HR_LB
 
 pdf("fig6-1.pdf", width = 6, height = 5)
-barplot(log(rbind(ess_MB, ess_LB_pos, ess_HR_LB_pos))/log(10),
+barplot(log(rbind(ess_MB,
+                  ess_LB_pos,
+                  ess_HR_LB_pos))/log(10),
         beside = TRUE,
-        legend.text = c("FMB", "LB", "HR LB"),
+        legend.text = c("FMB1", "FMB2", "LB1", "LB2", "HR LB1", "HR LB2"),
         args.legend = list(bg = "NA", x = "topright", horiz = TRUE, cex = 0.8),
         ylab = expression(log[10](ESS)),
         ylim = c(0, 5),
@@ -217,33 +219,37 @@ xRange = range(MB_samples_burnin[c(1:(nBurnin+nExtra),
                                    (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                    2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                    3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),i])
-
+pdf("fig6-2.pdf", width = 6, height = 5)
 extensionSamplers::traceplot(MB_samples_burnin[c(1:(nBurnin+nExtra),
                                                  (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, FALSE, ylim = xRange)
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
-
+dev.off()
 
 xRange = range(LB_samples_burnin[c(1:(nBurnin+nExtra),
                                     (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                     2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                     3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),i])
 
+pdf("fig6-3.pdf", width = 6, height = 5)
 extensionSamplers::traceplot(LB_samples_burnin[c(1:(nBurnin+nExtra),
                                                  (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                  3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, TRUE, 0.2, ylim = xRange)
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
+dev.off()
 
 xRange = range(hyperrectangle_LB_burnin[c(1:(nBurnin+nExtra),
                                           (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                           2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                           3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),i])
 
+pdf("fig6-4.pdf", width = 6, height = 5)
 extensionSamplers::traceplot(hyperrectangle_LB_burnin[c(1:(nBurnin+nExtra),
                                                         (nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                         2*(nBurnin+nSample) + 1:(nBurnin+nExtra),
                                                         3*(nBurnin+nSample) + 1:(nBurnin+nExtra)),], i, TRUE, 0.2, ylim = xRange)
 
 rect(0, -100000, nBurnin, 100000, col = "#00000010", border = "#00000000")
+dev.off()

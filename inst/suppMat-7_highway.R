@@ -36,13 +36,13 @@ samplesPoissonFMB <- extensionSamplers::sampler(A = A,
 write.csv(samplesPoissonFMB, "7-highway_poisson_FMB.csv", row.names = FALSE)
 
 set.seed(2027)
-samplesPoisson2MB <- extensionSamplers::sampler(A = A,
+samplesPoisson3MB <- extensionSamplers::sampler(A = A,
                                                 y = y,
                                                 B = LB,
                                                 Model = "poisson",
                                                 lambda = lambda,
                                                 extension = "p",
-                                                p = ifelse(1:28 %in% A2Idx, 0, 2),
+                                                p = ifelse(1:28 %in% A2Idx, 0, 3),
                                                 loggamma = 0,
                                                 w = 1.3,
                                                 nChains = 4,
@@ -51,9 +51,9 @@ samplesPoisson2MB <- extensionSamplers::sampler(A = A,
                                                 thinning = thinning,
                                                 includeBurnin = FALSE)
 
-write.csv(samplesPoisson2MB, "7-highway_poisson_2MB.csv", row.names = FALSE)
+write.csv(samplesPoisson3MB, "7-highway_poisson_3MB.csv", row.names = FALSE)
 
-positiveProportion2MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesPoisson2MB)))/(4*(nSample/thinning))
+positiveProportion3MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesPoisson3MB)))/(4*(nSample/thinning))
 
 set.seed(2027)
 samplesPoissonHR <- extensionSamplers::sampler(A = A,
@@ -90,12 +90,12 @@ samplesUniformFMB <- extensionSamplers::sampler(A = A,
 write.csv(samplesUniformFMB, "7-highway_uniform_FMB.csv", row.names = FALSE)
 
 set.seed(2027)
-samplesUniform2MB <- extensionSamplers::sampler(A = A,
+samplesUniform3MB <- extensionSamplers::sampler(A = A,
                                                 y = y,
                                                 B = LB,
                                                 Model = "uniform",
                                                 extension = "p",
-                                                p = ifelse(1:28 %in% A2Idx, 0, 2),
+                                                p = ifelse(1:28 %in% A2Idx, 0, 3),
                                                 loggamma = 0,
                                                 w = 0,
                                                 nChains = 4,
@@ -104,9 +104,9 @@ samplesUniform2MB <- extensionSamplers::sampler(A = A,
                                                 thinning = thinning,
                                                 includeBurnin = FALSE)
 
-write.csv(samplesUniform2MB, "7-highway_uniform_2MB.csv", row.names = FALSE)
+write.csv(samplesUniform3MB, "7-highway_uniform_3MB.csv", row.names = FALSE)
 
-positiveProportion2MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesUniform2MB)))/(4*(nSample/thinning))
+positiveProportion3MB <- sum(complete.cases(extensionSamplers::onlyPositive(samplesUniform3MB)))/(4*(nSample/thinning))
 
 set.seed(2027)
 samplesUniformHR <- extensionSamplers::sampler(A = A,
